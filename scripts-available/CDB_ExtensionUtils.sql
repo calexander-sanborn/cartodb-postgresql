@@ -10,7 +10,7 @@ BEGIN
   sql := 'ALTER EXTENSION cartodb UPDATE TO ''' || ver || '''';
   EXECUTE sql;
 END;
-$$ language 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ language 'plpgsql' VOLATILE ;
 
 CREATE OR REPLACE FUNCTION @extschema@.schema_exists(schema_name text)
 RETURNS boolean AS

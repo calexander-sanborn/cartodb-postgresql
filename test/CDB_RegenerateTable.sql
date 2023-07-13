@@ -31,7 +31,7 @@ BEGIN
     RETURN queries;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 \echo '## Run cartodb.CDB_RegenerateTable and confirm the data and columns are the same'
 SELECT cartodb.CDB_RegenerateTable('testtable'::regclass::oid);

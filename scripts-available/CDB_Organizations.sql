@@ -32,7 +32,7 @@ AS $$
 BEGIN
     EXECUTE 'GRANT "' || @extschema@.CDB_Organization_Member_Group_Role_Member_Name() || '" TO "' || role_name || '"';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -------------------------------------------------------------------------------
 -- Administrator
@@ -78,7 +78,7 @@ BEGIN
     -- CREATEROLE is not inherited, and is needed for user creation
     EXECUTE format('ALTER ROLE %I CREATEROLE', cdb_user_role);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Organization_RemoveAdmin(username text)
@@ -93,7 +93,7 @@ BEGIN
     EXECUTE format('ALTER ROLE %I NOCREATEROLE', cdb_user_role);
     EXECUTE format('REVOKE %I FROM %I', cdb_admin_role, cdb_user_role);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -------------------------------------------------------------------------------
 -- Sharing tables
@@ -106,7 +106,7 @@ BEGIN
     EXECUTE 'GRANT USAGE ON SCHEMA "' || from_schema || '" TO "' || to_role_name || '"';
     EXECUTE 'GRANT SELECT ON "' || from_schema || '"."' || table_name || '" TO "' || to_role_name || '"';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Organization_Add_Table_Organization_Read_Permission(from_schema text, table_name text)
@@ -115,7 +115,7 @@ AS $$
 BEGIN
     EXECUTE 'SELECT @extschema@.CDB_Organization_Add_Table_Read_Permission(''' || from_schema || ''', ''' || table_name || ''', ''' || @extschema@.CDB_Organization_Member_Group_Role_Member_Name() || ''');';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@._CDB_Organization_Get_Table_Sequences(from_schema text, table_name text)
@@ -134,7 +134,7 @@ BEGIN
         c.relkind = ''S''::"char" AND
         d.refobjid = (''' || quote_ident(from_schema) || '.' || quote_ident(table_name) ||''')::regclass';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Organization_Add_Table_Read_Write_Permission(from_schema text, table_name text, to_role_name text)
@@ -150,7 +150,7 @@ BEGIN
         EXECUTE 'GRANT USAGE, SELECT ON SEQUENCE ' || sequence_name || ' TO "' || to_role_name || '"';
     END LOOP;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Organization_Add_Table_Organization_Read_Write_Permission(from_schema text, table_name text)
@@ -159,7 +159,7 @@ AS $$
 BEGIN
     EXECUTE 'SELECT @extschema@.CDB_Organization_Add_Table_Read_Write_Permission(''' || from_schema || ''', ''' || table_name || ''', ''' || @extschema@.CDB_Organization_Member_Group_Role_Member_Name() || ''');';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 CREATE OR REPLACE
@@ -172,7 +172,7 @@ BEGIN
     -- We need to revoke usage on schema only if we are revoking privileges from the last table where to_role_name has
     -- any permission granted within the schema from_schema
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Organization_Remove_Organization_Access_Permission(from_schema text, table_name text)
@@ -181,7 +181,7 @@ AS $$
 BEGIN
     EXECUTE 'SELECT @extschema@.CDB_Organization_Remove_Access_Permission(''' || from_schema || ''', ''' || table_name || ''', ''' || @extschema@.CDB_Organization_Member_Group_Role_Member_Name() || ''');';
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 --------------------------------------------------------------------------------

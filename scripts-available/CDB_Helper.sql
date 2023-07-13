@@ -61,7 +61,7 @@ BEGIN
 
   PERFORM @extschema@._CDB_Error('looping too far', '_CDB_Unique_Identifier');
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- UTF8 safe and length aware. Find a unique identifier for a column with a given prefix
@@ -174,4 +174,4 @@ EXCEPTION
     WHEN invalid_schema_name OR undefined_table THEN
         RETURN false;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;

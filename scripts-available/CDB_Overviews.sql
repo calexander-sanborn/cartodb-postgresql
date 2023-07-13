@@ -18,7 +18,7 @@ BEGIN
         RAISE NOTICE 'Dropped overview for level %: %', row.z, row.overview_table;
     END LOOP;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 
@@ -108,7 +108,7 @@ AS $$
 
     RETURN ext;
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Determine the max feature density of a given dataset.
 -- Scope: private.
@@ -184,7 +184,7 @@ AS $$
   INTO fd;
   RETURN fd;
   END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Experimental default strategy to assign a reference base Z level
 -- to a cartodbfied table. The resulting Z level represents the
@@ -220,7 +220,7 @@ AS $$
     SELECT @extschema@.CDB_XYZ_Resolution(-8) INTO c;
     RETURN least(@extschema@._CDB_MaxOverviewLevel()+1, ceil(log(2.0, (c*c*fd/lim)::numeric)/2));
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Overview table name for a given Z level and base dataset or overview table
 -- Scope: private.
@@ -270,7 +270,7 @@ AS $$
   BEGIN
     RAISE EXCEPTION 'Creating overviews is deprecated';
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Register new overview table (post-creation chores)
 -- Scope: private
@@ -298,7 +298,7 @@ AS $$
   END
 $$  LANGUAGE PLPGSQL
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -553,7 +553,7 @@ AS $$
   BEGIN
     RAISE EXCEPTION 'Creating overviews is deprecated';
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- This strategy places the aggregation of each cluster at the centroid of the cluster members.
 CREATE OR REPLACE FUNCTION @extschema@._CDB_GridClusterCentroid_Reduce_Strategy(reloid REGCLASS, ref_z INTEGER, overview_z INTEGER, grid_px FLOAT8 DEFAULT NULL, has_overview_created BOOLEAN DEFAULT FALSE)
@@ -681,7 +681,7 @@ AS $$
 
     RETURN Format('%s', overview_table_name)::regclass;
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- This strategy places the aggregation of each cluster at the position of one of the cluster members.
 CREATE OR REPLACE FUNCTION @extschema@._CDB_GridClusterSample_Reduce_Strategy(reloid REGCLASS, ref_z INTEGER, overview_z INTEGER, grid_px FLOAT8 DEFAULT NULL, has_overview_created BOOLEAN DEFAULT FALSE)
@@ -710,7 +710,7 @@ AS $$
   BEGIN
     RAISE EXCEPTION 'Creating overviews is deprecated';
   END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Create overview tables for a dataset.
 -- Scope: public
@@ -731,7 +731,7 @@ DECLARE
 BEGIN
   RAISE EXCEPTION 'Creating overviews is deprecated';
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Create overviews with additional parameter to define the desired detail/tolerance in pixels
 CREATE OR REPLACE FUNCTION @extschema@.CDB_CreateOverviewsWithToleranceInPixels(reloid REGCLASS, tolerance_px FLOAT8, refscale_strategy regproc DEFAULT '@extschema@._CDB_Feature_Density_Ref_Z_Strategy(REGCLASS,FLOAT8)'::regprocedure, reduce_strategy regproc DEFAULT '@extschema@._CDB_GridCluster_Reduce_Strategy(REGCLASS,INTEGER,INTEGER,FLOAT8,BOOLEAN)'::regprocedure)
@@ -750,7 +750,7 @@ DECLARE
 BEGIN
   RAISE EXCEPTION 'Creating overviews is deprecated';
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Here are some older signatures of these functions, no longer in use.
 -- They must be droped here, after the (new) definition of the function `CDB_CreateOverviews`

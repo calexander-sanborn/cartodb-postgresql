@@ -46,7 +46,7 @@ BEGIN
     END;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- List the names of the tables in a remote PG schema
@@ -84,7 +84,7 @@ BEGIN
         $q$, local_schema, remote_table, remote_schema);
 END
 $func$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --
@@ -136,7 +136,7 @@ BEGIN
         remote_schema);
 END
 $func$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- List the geometry columns in a remote PG schema
@@ -186,7 +186,7 @@ BEGIN
     END;
 END
 $func$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ BEGIN
     END CASE;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- List remote tables in a federated server that the current user has access to.
@@ -262,7 +262,7 @@ BEGIN
     END CASE;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- List the columns of a remote table in a federated server that the current user has access to.
@@ -295,4 +295,4 @@ BEGIN
     END CASE;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;

@@ -12,7 +12,7 @@ BEGIN
 RETURN output;
 END;
 $$
-LANGUAGE 'plpgsql' IMMUTABLE STRICT PARALLEL UNSAFE;
+LANGUAGE 'plpgsql' IMMUTABLE STRICT ;
 
 -- Convert timestamp with time zone to double precision
 --
@@ -28,4 +28,4 @@ BEGIN
 RETURN output;
 END;
 $$
-LANGUAGE 'plpgsql' IMMUTABLE STRICT PARALLEL UNSAFE;
+LANGUAGE 'plpgsql' IMMUTABLE STRICT ;

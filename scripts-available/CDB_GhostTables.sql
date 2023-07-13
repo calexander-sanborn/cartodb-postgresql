@@ -45,7 +45,7 @@ AS $$
         plpy.warning('Error calling Invalidation Service to link Ghost Tables: ' +  str(err))
         break
       tis_retry -= 1 # try reconnecting
-$$ LANGUAGE '@@plpythonu@@' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE '@@plpythonu@@' VOLATILE ;
 
 -- Enqueues a job to run Ghost tables linking process for the current user
 CREATE OR REPLACE FUNCTION @extschema@.CDB_LinkGhostTables(event_name text DEFAULT 'USER')
@@ -63,7 +63,7 @@ AS $$
   END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -80,7 +80,7 @@ AS $$
   END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -93,7 +93,7 @@ AS $$
   END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -145,7 +145,7 @@ AS $$
                 'DROP TYPE')
     EXECUTE PROCEDURE @extschema@.CDB_SaveDDLTransaction();
   END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;
 
 -- Drops the trigger on DDL events to link ghost tables
 CREATE OR REPLACE FUNCTION @extschema@.CDB_DisableGhostTablesTrigger()
@@ -156,4 +156,4 @@ AS $$
     DROP TRIGGER IF EXISTS check_ddl_update ON @extschema@.cdb_ddl_execution;
     DROP TABLE IF EXISTS @extschema@.cdb_ddl_execution;
   END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;

@@ -127,7 +127,7 @@ BEGIN
     RETURN schema_name;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- Returns the type of a server by internal name
@@ -141,7 +141,7 @@ AS $$
         JOIN pg_foreign_data_wrapper f ON s.srvfdw = f.oid
         WHERE s.srvname = internal_server_name;
 $$
-LANGUAGE SQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE SQL VOLATILE ;
 
 --
 -- Take a config jsonb and transform it to an input suitable for _CDB_SetUp_User_PG_FDW_Server
@@ -218,7 +218,7 @@ BEGIN
     RETURN username;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --------------------------------------------------------------------------------
@@ -319,7 +319,7 @@ BEGIN
     END LOOP;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- Drops a registered server and all the objects associated with it
@@ -341,7 +341,7 @@ BEGIN
     END;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- List registered servers
@@ -409,7 +409,7 @@ BEGIN
     END;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- Revoke access to a server
@@ -434,4 +434,4 @@ BEGIN
     END;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;

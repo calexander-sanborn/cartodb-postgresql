@@ -21,7 +21,7 @@ BEGIN
     END IF;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- Get the version of a remote PG server
@@ -49,7 +49,7 @@ BEGIN
     RETURN remote_server_version;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --
@@ -78,7 +78,7 @@ BEGIN
     RETURN remote_postgis_version;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --
@@ -95,7 +95,7 @@ AS $$
         WHERE srvname = server_internal
     ) AS opt;
 $$
-LANGUAGE SQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE SQL VOLATILE ;
 
 
 --
@@ -109,7 +109,7 @@ AS $$
         FROM pg_foreign_server WHERE srvname = server_internal
     ) AS opt WHERE opt.option_name = 'host';
 $$
-LANGUAGE SQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE SQL VOLATILE ;
 
 
 --
@@ -123,7 +123,7 @@ AS $$
         FROM pg_foreign_server WHERE srvname = server_internal
     ) AS opt WHERE opt.option_name = 'port';
 $$
-LANGUAGE SQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE SQL VOLATILE ;
 
 --
 -- Get one measure of network latency in ms to a remote TCP server
@@ -191,7 +191,7 @@ AS $$
         })
     return json.dumps(stats)
 $$
-LANGUAGE @@plpythonu@@ VOLATILE PARALLEL UNSAFE;
+LANGUAGE @@plpythonu@@ VOLATILE ;
 
 
 --
@@ -214,7 +214,7 @@ BEGIN
     );
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 
@@ -240,4 +240,4 @@ BEGIN
     END CASE;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;

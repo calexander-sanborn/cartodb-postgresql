@@ -15,7 +15,7 @@ BEGIN
     EXECUTE format('CREATE ROLE %I NOLOGIN;', group_role);
     PERFORM @extschema@._CDB_Group_CreateGroup_API(group_name, group_role);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Drops group and everything that role owns
 -- TODO: LIMITATION: in order to drop a role all its owned objects must be dropped before.
@@ -33,7 +33,7 @@ BEGIN
     EXECUTE format('DROP ROLE IF EXISTS %I', group_role);
     PERFORM @extschema@._CDB_Group_DropGroup_API(group_name);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Renames a group
 CREATE OR REPLACE
@@ -48,7 +48,7 @@ BEGIN
     EXECUTE format('ALTER ROLE %I RENAME TO %I', old_group_role, new_group_role);
     PERFORM @extschema@._CDB_Group_RenameGroup_API(old_group_name, new_group_name, new_group_role);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Adds users to a group
 CREATE OR REPLACE
@@ -71,7 +71,7 @@ BEGIN
     end loop;
     PERFORM @extschema@._CDB_Group_AddUsers_API(group_name, usernames);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Removes users from a group
 CREATE OR REPLACE
@@ -90,7 +90,7 @@ BEGIN
     end loop;
     PERFORM @extschema@._CDB_Group_RemoveUsers_API(group_name, usernames);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 ----------------------------------
 -- TABLE MANAGEMENT FUNCTIONS
@@ -107,7 +107,7 @@ DECLARE
 BEGIN
     PERFORM @extschema@._CDB_Group_Table_GrantRead(group_name, username, table_name, true);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@._CDB_Group_Table_GrantRead(group_name text, username text, table_name text, sync boolean)
@@ -122,7 +122,7 @@ BEGIN
       PERFORM @extschema@._CDB_Group_Table_GrantPermission_API(group_name, username, table_name, 'r');
     END IF;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Grants table write permission to a group
 CREATE OR REPLACE
@@ -133,7 +133,7 @@ DECLARE
 BEGIN
     PERFORM @extschema@._CDB_Group_Table_GrantReadWrite(group_name, username, table_name, true);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@._CDB_Group_Table_GrantReadWrite(group_name text, username text, table_name text, sync boolean)
@@ -149,7 +149,7 @@ BEGIN
       PERFORM @extschema@._CDB_Group_Table_GrantPermission_API(group_name, username, table_name, 'w');
     END IF;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Granting and revoking permissions on sequences
 CREATE OR REPLACE
@@ -175,7 +175,7 @@ BEGIN
     END LOOP;
     RETURN;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Revokes all permissions on a table from a group
 CREATE OR REPLACE
@@ -186,7 +186,7 @@ DECLARE
 BEGIN
     PERFORM @extschema@._CDB_Group_Table_RevokeAll(group_name, username, table_name, true);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@._CDB_Group_Table_RevokeAll(group_name text, username text, table_name text, sync boolean)
@@ -201,7 +201,7 @@ BEGIN
       PERFORM @extschema@._CDB_Group_Table_RevokeAllPermission_API(group_name, username, table_name);
     END IF;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -----------------------
 -- Helper functions

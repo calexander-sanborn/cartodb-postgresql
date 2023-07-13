@@ -23,7 +23,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -43,7 +43,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -63,7 +63,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -83,7 +83,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -103,7 +103,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -131,7 +131,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -158,7 +158,7 @@ $$
     plpy.execute(query)
 $$  LANGUAGE '@@plpythonu@@'
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -191,7 +191,7 @@ $$
       params = json.loads(conf)
       auth = 'Basic %s' % plpy.execute("SELECT @extschema@._CDB_Group_API_Auth('%s', '%s') as auth" % (params['username'], params['password']))[0]['auth']
       return { "host": params['host'], "port": params['port'], 'timeout': params['timeout'], 'auth': auth }
-$$ LANGUAGE '@@plpythonu@@' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE '@@plpythonu@@' VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@._CDB_Group_API_Auth(username text, password text)
@@ -208,7 +208,7 @@ $$
 
     data_encoded = data_encoded.replace('\n', '')
     return data_encoded
-$$ LANGUAGE '@@plpythonu@@' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE '@@plpythonu@@' VOLATILE ;
 
 -- url must contain a '%s' placeholder that will be replaced by current_database, for security reasons.
 CREATE OR REPLACE
@@ -253,5 +253,5 @@ $$
       raise last_err
 
     return None
-$$ LANGUAGE '@@plpythonu@@' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE '@@plpythonu@@' VOLATILE ;
 revoke all on function @extschema@._CDB_Group_API_Request(text, text, text, int[]) from public;

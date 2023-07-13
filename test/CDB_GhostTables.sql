@@ -49,7 +49,7 @@ AS $$
         plpy.warning('Error calling Invalidation Service to link Ghost Tables')
         break
       tis_retry -= 1 # try reconnecting
-$$ LANGUAGE '@@plpythonu@@' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE '@@plpythonu@@' VOLATILE ;
 
 SELECT CDB_EnableGhostTablesTrigger();
 CREATE ROLE "fulano" LOGIN;

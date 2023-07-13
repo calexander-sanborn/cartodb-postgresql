@@ -57,7 +57,7 @@ BEGIN
 END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -121,7 +121,7 @@ BEGIN
 END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -149,4 +149,4 @@ CREATE OR REPLACE FUNCTION @extschema@.CDB_TableMetadataTouch(tablename regclass
             WHERE NOT EXISTS (SELECT * FROM upsert);
     END;
     $$
-LANGUAGE 'plpgsql' VOLATILE STRICT PARALLEL UNSAFE;
+LANGUAGE 'plpgsql' VOLATILE STRICT ;

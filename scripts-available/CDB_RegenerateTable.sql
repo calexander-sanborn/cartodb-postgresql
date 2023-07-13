@@ -52,7 +52,7 @@ AS $$
 
     return clean_lines
 $$
-LANGUAGE @@plpythonu@@ VOLATILE PARALLEL UNSAFE;
+LANGUAGE @@plpythonu@@ VOLATILE ;
 
 -- Returns a list of queries that can be used to regenerate the structure of a table
 -- The query to create the table is not included
@@ -92,7 +92,7 @@ BEGIN
     RETURN queries;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 -- Helper function to apply the result of CDB_GetTableQueries catching and discarding any exceptions
 CREATE OR REPLACE FUNCTION @extschema@.CDB_ApplyQueriesSafe(queries TEXT[])
@@ -114,7 +114,7 @@ BEGIN
     END IF;
 END
 $$
-LANGUAGE PLPGSQL STRICT VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL STRICT VOLATILE ;
 
 -- Regenerates a table
 CREATE OR REPLACE FUNCTION @extschema@.CDB_RegenerateTable(tableoid OID)
@@ -150,4 +150,4 @@ BEGIN
 
     EXECUTE FORMAT('INSERT INTO %s SELECT * FROM %I', table_name, temp_name);
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;

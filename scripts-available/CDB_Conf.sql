@@ -26,7 +26,7 @@ BEGIN
     PERFORM @extschema@.CDB_Conf_RemoveConf(key);
     EXECUTE 'INSERT INTO @extschema@.CDB_CONF (KEY, VALUE) VALUES ($1, $2);' USING key, value;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Conf_RemoveConf(key text)
@@ -34,7 +34,7 @@ FUNCTION @extschema@.CDB_Conf_RemoveConf(key text)
 BEGIN
     EXECUTE 'DELETE FROM @extschema@.CDB_CONF WHERE KEY = $1;' USING key;
 END
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 CREATE OR REPLACE
 FUNCTION @extschema@.CDB_Conf_GetConf(key text)

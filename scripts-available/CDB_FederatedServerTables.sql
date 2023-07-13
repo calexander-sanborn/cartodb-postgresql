@@ -18,7 +18,7 @@ BEGIN
     RETURN FOUND;
 END
 $$
-LANGUAGE PLPGSQL STABLE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL STABLE ;
 
 --
 -- Checks if a column is of geometry type
@@ -34,7 +34,7 @@ BEGIN
     RETURN FOUND;
 END
 $$
-LANGUAGE PLPGSQL STABLE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL STABLE ;
 
 --
 -- Returns the name of all the columns from a table
@@ -55,7 +55,7 @@ AS $$
                 WHERE c.oid = input_table::oid
             )
     ORDER BY a.attnum;
-$$ LANGUAGE SQL STABLE PARALLEL UNSAFE;
+$$ LANGUAGE SQL STABLE ;
 
 --
 -- Returns the id column from a view definition
@@ -164,7 +164,7 @@ BEGIN
     ) _aux;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --------------------------------------------------------------------------------
@@ -323,7 +323,7 @@ BEGIN
     END;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 --
 -- Unregisters a remote table. Any dependent object will be dropped
@@ -342,4 +342,4 @@ BEGIN
     EXECUTE FORMAT ('DROP FOREIGN TABLE %I.%I CASCADE;', local_schema, remote_table);
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+LANGUAGE PLPGSQL VOLATILE ;

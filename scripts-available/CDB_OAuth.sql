@@ -37,7 +37,7 @@ BEGIN
 END;
 $$  LANGUAGE plpgsql
     VOLATILE
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -53,7 +53,7 @@ AS $$
     WHEN TAG IN ('CREATE TABLE', 'CREATE TABLE AS', 'SELECT INTO', 'CREATE VIEW', 'CREATE FOREIGN TABLE', 'CREATE MATERIALIZED VIEW', 'CREATE SEQUENCE', 'CREATE FUNCTION')
     EXECUTE PROCEDURE @extschema@.CDB_OAuthReassignTableOwnerOnCreation();
   END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;
 
 -- Deletes the trigger on DDL events in order to reassign the owner
 CREATE OR REPLACE FUNCTION @extschema@.CDB_DisableOAuthReassignTablesTrigger()
@@ -62,4 +62,4 @@ AS $$
   BEGIN
     DROP EVENT TRIGGER IF EXISTS oauth_reassign_tables_trigger;
   END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;

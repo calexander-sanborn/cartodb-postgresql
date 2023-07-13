@@ -15,7 +15,7 @@ END
 $$  LANGUAGE 'plpgsql'
     VOLATILE
     STRICT
-    PARALLEL UNSAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -33,4 +33,4 @@ BEGIN
   EXECUTE 'EXPLAIN (FORMAT JSON) ' || query INTO STRICT plan;
   RETURN plan->0->'Plan'->'Plan Rows';
 END
-$$ LANGUAGE 'plpgsql' VOLATILE STRICT PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE STRICT ;

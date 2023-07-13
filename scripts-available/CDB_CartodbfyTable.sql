@@ -26,7 +26,7 @@ BEGIN
       RAISE EXCEPTION 'Please set user quota before cartodbfying tables.';
   END;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- Drop cartodb triggers (might prevent changing columns)
 CREATE OR REPLACE FUNCTION @extschema@._CDB_drop_triggers(reloid REGCLASS)
@@ -49,7 +49,7 @@ BEGIN
   sql := Format('DROP TRIGGER IF EXISTS test_quota_per_row ON %s', reloid::text);
   EXECUTE sql;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 -- Cartodb_id creation & validation or renaming if invalid
@@ -195,7 +195,7 @@ BEGIN
   END;
 
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 -- Create all triggers
@@ -235,7 +235,7 @@ BEGIN
          || ''')';
   EXECUTE sql;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 -- 8.b) Create all raster triggers
 -- NOTE: drop/create has the side-effect of re-enabling disabled triggers
@@ -267,7 +267,7 @@ BEGIN
          || ''')';
   EXECUTE sql;
 END;
-$$ LANGUAGE PLPGSQL VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL VOLATILE ;
 
 
 
@@ -279,7 +279,7 @@ BEGIN
   NEW.the_geom_webmercator := @extschema@.CDB_TransformToWebmercator(NEW.the_geom);
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;
 
 --- Trigger to update the updated_at column. No longer added by default
 --- but kept here for compatibility with old tables which still have this behavior
@@ -322,7 +322,7 @@ BEGIN
 
   RETURN is_raster;
 END;
-$$ LANGUAGE PLPGSQL STABLE PARALLEL UNSAFE;
+$$ LANGUAGE PLPGSQL STABLE ;
 
 
 
@@ -425,7 +425,7 @@ BEGIN
     RAISE EXCEPTION 'CDB(%:%:%): %', funcname, SQLSTATE, SQLERRM, sql;
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- DEPRECATED: Use _CDB_Unique_Identifier since it's UTF8 Safe and length
@@ -583,7 +583,7 @@ BEGIN
   -- Didn't find re-usable key, so return FALSE
   RETURN false;
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 CREATE OR REPLACE FUNCTION @extschema@._CDB_Has_Usable_PK_Sequence(reloid REGCLASS)
@@ -776,7 +776,7 @@ BEGIN
   RETURN rv;
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- Create a copy of the table. Assumes that the "Has usable" functions
@@ -1143,7 +1143,7 @@ BEGIN
   RETURN true;
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- Assumes the table already has the right metadata columns
@@ -1245,7 +1245,7 @@ BEGIN
   RETURN true;
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 DROP FUNCTION IF EXISTS @extschema@.CDB_CartodbfyTable(destschema TEXT, reloid REGCLASS);
 CREATE OR REPLACE FUNCTION @extschema@.CDB_CartodbfyTable(destschema TEXT, reloid REGCLASS)
@@ -1315,4 +1315,4 @@ BEGIN
 
   RETURN (destschema || '.' || destname)::regclass;
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;

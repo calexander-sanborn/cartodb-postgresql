@@ -23,7 +23,7 @@ AS $$
             AND pg_catalog.pg_table_is_visible(c.oid)
       )
   ORDER BY a.attnum;
-$$ LANGUAGE sql STABLE PARALLEL UNSAFE;
+$$ LANGUAGE sql STABLE ;
 
 
 /*
@@ -66,7 +66,7 @@ CREATE OR REPLACE FUNCTION @extschema@.__CDB_GenerateUniqueName(prefix TEXT)
 RETURNS NAME
 AS $$
   SELECT format('%s_%s_%s', prefix, txid_current(), (random()*1000000)::int)::NAME;
-$$ LANGUAGE sql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE sql VOLATILE ;
 
 /*
     Given a table name and an array of column names,
@@ -164,4 +164,4 @@ BEGIN
   RAISE NOTICE 'MODIFIED % row(s)', num_rows;
   RAISE DEBUG 'UPDATE time (s): %', clock_timestamp() - t;
 END;
-$$ LANGUAGE plpgsql VOLATILE PARALLEL UNSAFE;
+$$ LANGUAGE plpgsql VOLATILE ;
