@@ -51,7 +51,7 @@ BEGIN
   END lOOP;
   RETURN array_to_string(set_clause_list, ', ');
 END;
-$$ LANGUAGE plpgsql IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE plpgsql IMMUTABLE ;
 
 
 /*
@@ -82,7 +82,7 @@ $$ LANGUAGE sql VOLATILE ;
 CREATE OR REPLACE FUNCTION @extschema@.__CDB_QualifyColumns(tablename NAME, colnames NAME[]) RETURNS TEXT[] AS
 $$
     SELECT array_agg(tablename || '.' || _colname) from unnest(colnames) _colname;
-$$ LANGUAGE sql IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE sql IMMUTABLE ;
 
 /*
    A Table Syncer

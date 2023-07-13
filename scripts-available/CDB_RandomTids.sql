@@ -64,6 +64,6 @@ BEGIN
   RETURN tidlist;
 
 END
-$$ LANGUAGE 'plpgsql' STABLE STRICT PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' STABLE STRICT ;
 -- }
 

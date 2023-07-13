@@ -2,7 +2,7 @@
 CREATE OR REPLACE FUNCTION @extschema@._CDB_MaxSupportedZoom()
 RETURNS int
 LANGUAGE SQL
-IMMUTABLE PARALLEL SAFE
+IMMUTABLE 
 AS $$
   -- The maximum zoom level has to be limited for various reasons,
   -- e.g. zoom levels greater than 31 would require tile coordinates
@@ -15,7 +15,7 @@ $$;
 CREATE OR REPLACE FUNCTION @extschema@.CDB_ZoomFromScale(scaleDenominator numeric)
 RETURNS int
 LANGUAGE SQL
-IMMUTABLE PARALLEL SAFE
+IMMUTABLE 
 AS $$
   SELECT
     CASE

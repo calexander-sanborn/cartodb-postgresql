@@ -4,7 +4,7 @@ FUNCTION @extschema@.CDB_Organization_Member_Group_Role_Member_Name()
 AS $$
     SELECT 'cdb_org_member'::text || '_' || md5(current_database());
 $$
-LANGUAGE SQL STABLE PARALLEL SAFE;
+LANGUAGE SQL STABLE ;
 
 
 ----- ########################## WARNING ##########################
@@ -43,7 +43,7 @@ FUNCTION @extschema@._CDB_Organization_Admin_Role_Name()
 AS $$
     SELECT current_database() || '_a'::text;
 $$
-LANGUAGE SQL STABLE PARALLEL SAFE;
+LANGUAGE SQL STABLE ;
 
 ----- ########################## WARNING ##########################
 ----- The code below creates a new role for the organization but

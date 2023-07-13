@@ -29,7 +29,7 @@ BEGIN
       RETURN k;
     END IF;
 END;
-$$ language plpgsql IMMUTABLE STRICT PARALLEL SAFE;
+$$ language plpgsql IMMUTABLE STRICT ;
 
 -- Calculate skewness
 CREATE OR REPLACE FUNCTION @extschema@.CDB_Skewness ( in_array NUMERIC[] ) RETURNS NUMERIC as $$
@@ -50,4 +50,4 @@ BEGIN
       RETURN sk;
     END IF;
 END;
-$$ language plpgsql IMMUTABLE STRICT PARALLEL SAFE;
+$$ language plpgsql IMMUTABLE STRICT ;

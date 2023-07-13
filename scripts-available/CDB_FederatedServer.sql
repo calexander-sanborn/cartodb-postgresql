@@ -21,7 +21,7 @@ RETURNS TEXT
 AS $$
     SELECT 'cdb_fs_'::text;
 $$
-LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE SQL IMMUTABLE ;
 
 --
 -- Produce a valid DB name for servers generated for the Federated Server
@@ -50,7 +50,7 @@ BEGIN
     RETURN internal_server_name::name;
 END
 $$
-LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE PLPGSQL IMMUTABLE ;
 
 --
 -- Given the internal name for a remote server, it returns the name used by the user
@@ -62,7 +62,7 @@ AS $$
     SELECT right(internal_server_name,
             char_length(internal_server_name::TEXT) - char_length(@extschema@.__CDB_FS_Name_Pattern()))::TEXT;
 $$
-LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE SQL IMMUTABLE ;
 
 --
 -- Produce a valid name for a schema generated for the Federated Server
@@ -79,7 +79,7 @@ BEGIN
     RETURN format('%s%s%s', @extschema@.__CDB_FS_Name_Pattern(), 'schema_', hash_value)::name;
 END
 $$
-LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE PLPGSQL IMMUTABLE ;
 
 --
 -- Produce a valid name for a role generated for the Federated Server
@@ -95,7 +95,7 @@ BEGIN
     RETURN role_name::name;
 END
 $$
-LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+LANGUAGE PLPGSQL STABLE ;
 
 --
 -- Creates (if not exist) a schema to place the objects for a remote schema
@@ -167,7 +167,7 @@ BEGIN
     RETURN (input_config - 'credentials')::jsonb || jsonb_build_object('user_mapping', mapping);
 END
 $$
-LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE PLPGSQL IMMUTABLE ;
 
 -- Take a config jsonb as input and return it augmented with default
 -- options
@@ -190,7 +190,7 @@ BEGIN
     RETURN jsonb_set(input_config, '{server}'::text[], server_config);
 END
 $$
-LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE PLPGSQL IMMUTABLE ;
 
 -- Given an server name, returns the username used in the configuration if the caller has rights to access it
 CREATE OR REPLACE FUNCTION @extschema@.__CDB_FS_get_usermapping_username(internal_server_name NAME)
@@ -381,7 +381,7 @@ BEGIN
     ORDER BY 1;
 END
 $$
-LANGUAGE PLPGSQL VOLATILE PARALLEL SAFE;
+LANGUAGE PLPGSQL VOLATILE ;
 
 
 --

@@ -65,7 +65,7 @@ BEGIN
 
     RETURN signature;
 END;
-$$ language plpgsql IMMUTABLE STRICT PARALLEL SAFE;
+$$ language plpgsql IMMUTABLE STRICT ;
 
 -- Classify data into AJUSFL
 
@@ -119,4 +119,4 @@ BEGIN
 
     RETURN type;
 END;
-$$ language plpgsql IMMUTABLE STRICT PARALLEL SAFE;
+$$ language plpgsql IMMUTABLE STRICT ;

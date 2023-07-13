@@ -15,4 +15,4 @@ AS $$
     WITHIN GROUP (ORDER BY x ASC) AS p
   FROM
     unnest(in_array) AS x;
-$$ language SQL IMMUTABLE STRICT PARALLEL SAFE;
+$$ language SQL IMMUTABLE STRICT ;

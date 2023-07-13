@@ -43,4 +43,4 @@ BEGIN
     END LOOP; 
     RETURN reply; 
 END; 
-$$ language plpgsql IMMUTABLE PARALLEL SAFE;
+$$ language plpgsql IMMUTABLE ;

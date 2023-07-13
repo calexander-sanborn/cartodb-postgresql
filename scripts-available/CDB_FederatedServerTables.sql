@@ -74,7 +74,7 @@ AS $$
     FROM column_definitions
     WHERE trim(trailing ',' FROM col_def[array_length(col_def, 1)]) IN ('t.cartodb_id', 'cartodb_id')
     LIMIT 1;
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE SQL IMMUTABLE ;
 
 --
 -- Returns the geom column from a view definition
@@ -94,7 +94,7 @@ AS $$
     FROM column_definitions
     WHERE trim(trailing ',' FROM col_def[array_length(col_def, 1)]) IN ('t.the_geom', 'the_geom')
     LIMIT 1;
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE SQL IMMUTABLE ;
 
 --
 -- Returns the webmercatorcolumn from a view definition
@@ -116,7 +116,7 @@ AS $$
     FROM column_definitions
     WHERE trim(trailing ',' FROM col_def[array_length(col_def, 1)]) IN ('t.the_geom_webmercator', 'the_geom_webmercator')
     LIMIT 1;
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE SQL IMMUTABLE ;
 
 
 --

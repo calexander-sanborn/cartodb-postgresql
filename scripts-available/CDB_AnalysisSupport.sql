@@ -8,7 +8,7 @@ AS $$
   BEGIN
     RETURN table_name SIMILAR TO '\Aanalysis_[0-9a-f]{10}_[0-9a-f]{40}\Z';
   END;
-$$ LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL IMMUTABLE ;
 
 -- This function returns a relation of Camshaft cached analysis tables in the given schema.
 -- If the schema name parameter is NULL, then tables from all schemas
@@ -19,7 +19,7 @@ CREATE OR REPLACE FUNCTION @extschema@._CDB_AnalysisTablesInSchema(schema_name t
 RETURNS TABLE(table_regclass REGCLASS, schema_name TEXT, table_name TEXT)
 AS $$
   SELECT * FROM @extschema@._CDB_UserTablesInSchema(schema_name) WHERE @extschema@._CDB_IsAnalysisTableName(table_name);
-$$ LANGUAGE 'sql' STABLE PARALLEL SAFE;
+$$ LANGUAGE 'sql' STABLE ;
 
 -- This function returns a relation user tables excluding analysis tables
 -- If the schema name parameter is NULL, then tables from all schemas
@@ -30,7 +30,7 @@ CREATE OR REPLACE FUNCTION @extschema@._CDB_NonAnalysisTablesInSchema(schema_nam
 RETURNS TABLE(table_regclass REGCLASS, schema_name TEXT, table_name TEXT)
 AS $$
   SELECT * FROM @extschema@._CDB_UserTablesInSchema(schema_name) WHERE Not @extschema@._CDB_IsAnalysisTableName(table_name);
-$$ LANGUAGE 'sql' STABLE PARALLEL SAFE;
+$$ LANGUAGE 'sql' STABLE ;
 
 -- Total spaced used up by Camshaft cached analysis tables in the given schema.
 -- Scope: private.

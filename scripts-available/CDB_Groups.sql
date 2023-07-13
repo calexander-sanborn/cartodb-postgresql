@@ -223,7 +223,7 @@ BEGIN
     END IF;
     RETURN group_role;
 END
-$$ LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL STABLE ;
 
 -- Returns the first owner of the schema matching username. Organization user schemas must have one only owner.
 CREATE OR REPLACE
@@ -237,7 +237,7 @@ BEGIN
     SELECT pg_get_userbyid(nspowner) FROM pg_namespace WHERE nspname = username INTO user_role;
     RETURN user_role;
 END
-$$ LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL STABLE ;
 
 -- Database names are too long, we need a shorter version for composing role names
 CREATE OR REPLACE
@@ -249,4 +249,4 @@ BEGIN
     SELECT md5(current_database()) INTO short_database_name;
     RETURN short_database_name;
 END
-$$ LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL STABLE ;

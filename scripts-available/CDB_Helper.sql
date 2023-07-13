@@ -116,7 +116,7 @@ BEGIN
 
   PERFORM @extschema@._CDB_Error('looping too far', '_CDB_Unique_Column_Identifier');
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- Truncates a given string to a max_octets octets taking care
@@ -157,7 +157,7 @@ BEGIN
 
   RETURN left(string, (i - 1));
 END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' IMMUTABLE ;
 
 
 -- Checks if a given text representing a qualified or unqualified table name (relation)

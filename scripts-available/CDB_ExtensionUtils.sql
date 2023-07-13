@@ -17,4 +17,4 @@ RETURNS boolean AS
 $$
   SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = schema_name::text);
 $$
-language sql STABLE PARALLEL SAFE;
+language sql STABLE ;

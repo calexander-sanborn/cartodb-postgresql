@@ -8,7 +8,7 @@ AS $$
       SELECT (@postgisschema@.ST_DumpPoints(@postgisschema@.ST_ExteriorRing(@postgisschema@.ST_Buffer($1, $2, 3)))).*
     ) as points
     WHERE path[1] % 2 != 0
-$$ LANGUAGE 'sql' IMMUTABLE STRICT PARALLEL SAFE;
+$$ LANGUAGE 'sql' IMMUTABLE STRICT ;
 
 
 -- In older versions of the extension, CDB_HexagonGrid had a different signature
@@ -145,4 +145,4 @@ BEGIN
 
   RETURN;
 END
-$$ LANGUAGE 'plpgsql' IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' IMMUTABLE ;

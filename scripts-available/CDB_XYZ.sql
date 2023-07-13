@@ -6,7 +6,7 @@ RETURNS FLOAT8
 AS $$
   -- circumference divided by 256 is z0 resolution, then divide by 2^z
   SELECT 6378137.0*2.0*pi() / 256.0 / power(2.0, z);
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE STRICT;
+$$ LANGUAGE SQL IMMUTABLE  STRICT;
 -- }
 
 -- {
@@ -58,5 +58,5 @@ BEGIN
   
   RETURN @postgisschema@.ST_MakeEnvelope(xmin, ymin, xmax, ymax, 3857);
 END
-$$ LANGUAGE 'plpgsql' IMMUTABLE STRICT PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' IMMUTABLE STRICT ;
 -- }

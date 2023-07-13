@@ -69,7 +69,7 @@ AS $$
       schema_name = @extschema@._cdb_schema_name(base_table)
       AND @extschema@._CDB_IsOverviewTableOf((SELECT relname FROM pg_class WHERE oid=base_table), table_name)
     ORDER BY base_table, z;
-$$ LANGUAGE SQL STABLE PARALLEL SAFE;
+$$ LANGUAGE SQL STABLE ;
 
 -- Calculate the estimated extent of a cartodbfy'ed table.
 -- Scope: private.
@@ -244,7 +244,7 @@ AS $$
     SELECT @extschema@._CDB_OverviewBaseTableName(base) INTO base;
     RETURN @extschema@._CDB_OverviewTableName(base, overview_z);
   END
-$$ LANGUAGE PLPGSQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL IMMUTABLE ;
 
 -- Sampling reduction method.
 -- Valid for any kind of geometry.
@@ -316,7 +316,7 @@ AS $$
     WHERE c NOT IN (
       cdb.pkey, cdb.geomcol, cdb.mercgeomcol
     )
-$$ LANGUAGE SQL STABLE PARALLEL SAFE;
+$$ LANGUAGE SQL STABLE ;
 
 -- List of dataset attributes to be aggregated in aggregated overview
 -- as a comma-separated SQL expression.
@@ -336,7 +336,7 @@ BEGIN
 
   RETURN attr_list;
 END
-$$ LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL STABLE ;
 
 -- Check if a column of a table is of an unlimited-length text type
 CREATE OR REPLACE FUNCTION @extschema@._cdb_unlimited_text_column(reloid REGCLASS, col_name TEXT)
@@ -352,7 +352,7 @@ AS $$
       AND format_type(a.atttypid, NULL) IN ('text', 'character varying', 'character')
       AND format_type(a.atttypid, NULL) = format_type(a.atttypid, a.atttypmod)
   );
-$$ LANGUAGE SQL STABLE PARALLEL SAFE;
+$$ LANGUAGE SQL STABLE ;
 
 CREATE OR REPLACE FUNCTION @extschema@._cdb_categorical_column(reloid REGCLASS, col_name TEXT)
 RETURNS BOOLEAN
@@ -392,7 +392,7 @@ $$
     ORDER BY COUNT(1) DESC, 1
     LIMIT 1;
 $$
-LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+LANGUAGE SQL IMMUTABLE ;
 
 DROP AGGREGATE IF EXISTS @extschema@._cdb_mode(anyelement);
 CREATE AGGREGATE @extschema@._cdb_mode(anyelement) (
@@ -515,7 +515,7 @@ BEGIN
   INTO gtypes;
   RETURN gtypes;
 END
-$$ LANGUAGE PLPGSQL STABLE PARALLEL SAFE;
+$$ LANGUAGE PLPGSQL STABLE ;
 
 -- Experimental Overview reduction method for point datasets.
 -- It clusters the points using a grid, then aggregates the point in each

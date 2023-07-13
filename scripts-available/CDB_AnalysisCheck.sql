@@ -8,7 +8,7 @@ BEGIN
 END;
 $$  LANGUAGE 'plpgsql'
     STABLE
-    PARALLEL SAFE
+    
     SECURITY DEFINER
     SET search_path = pg_temp;
 
@@ -29,7 +29,7 @@ BEGIN
   RETURN factor;
 END;
 $$
-LANGUAGE 'plpgsql' STABLE PARALLEL SAFE;
+LANGUAGE 'plpgsql' STABLE ;
 
 -- This checks the space used up by Camshaft cached analysis tables.
 -- An exception will be raised if the limits are exceeded.

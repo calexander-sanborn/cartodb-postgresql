@@ -398,7 +398,7 @@ geomcol := 'the_geom';
 mercgeomcol := 'the_geom_webmercator';
 
 END;
-$$ LANGUAGE 'plpgsql' IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' IMMUTABLE ;
 
 
 CREATE OR REPLACE FUNCTION @extschema@._CDB_Error(message TEXT, funcname TEXT DEFAULT '_CDB_Error')
@@ -409,7 +409,7 @@ BEGIN
   RAISE EXCEPTION 'CDB(%): %', funcname, message;
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 CREATE OR REPLACE FUNCTION @extschema@._CDB_SQL(sql TEXT, funcname TEXT DEFAULT '_CDB_SQL')
@@ -444,7 +444,7 @@ BEGIN
   RAISE EXCEPTION '_CDB_Unique_Relation_Name is DEPRECATED. Use _CDB_Unique_Identifier(prefix TEXT, relname TEXT, suffix TEXT, schema TEXT DEFAULT NULL)';
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- DEPRECATED: Use _CDB_Unique_Column_Identifier since it's UTF8 Safe and length
@@ -463,7 +463,7 @@ BEGIN
   RAISE EXCEPTION '_CDB_Unique_Column_Name is DEPRECATED. Use _CDB_Unique_Column_Identifier(prefix TEXT, relname TEXT, suffix TEXT, reloid REGCLASS DEFAULT NULL)';
 
 END;
-$$ LANGUAGE 'plpgsql' VOLATILE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' VOLATILE ;
 
 
 -- Find out if the table already has a usable primary key
@@ -603,7 +603,7 @@ BEGIN
 
   RETURN has_sequence;
 END;
-$$ LANGUAGE 'plpgsql' STABLE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' STABLE ;
 
 -- Return a set of columns that can be candidates to be the_geom[webmercator]
 -- with some extra information to analyze them.
@@ -632,7 +632,7 @@ BEGIN
     AND @postgisschema@.postgis_typmod_srid(a.atttypmod) IN (4326, 3857, 0)
     ORDER BY t.oid ASC;
 END;
-$$ LANGUAGE 'plpgsql' STABLE PARALLEL SAFE;
+$$ LANGUAGE 'plpgsql' STABLE ;
 
 DO $$
 BEGIN

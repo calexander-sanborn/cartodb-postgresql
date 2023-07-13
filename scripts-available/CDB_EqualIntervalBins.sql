@@ -19,6 +19,6 @@ SELECT array_agg(bins)
   FROM (
     SELECT min + generate_series(1,breaks)*del AS bins
       FROM stats) q;
-$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE;
+$$ LANGUAGE SQL IMMUTABLE ;
 
 DROP FUNCTION IF EXISTS @extschema@.CDB_EqualIntervalBins( numeric[], integer);
