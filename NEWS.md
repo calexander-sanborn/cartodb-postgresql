@@ -15,20 +15,20 @@
 
 0.35.0 (2019-12-30)
 * Reapply the changes in 0.33.0 (the issue we were looking for was unrelated)
-* Reapply `Make PG12 depend on plpython3u instead of plpythonu`
+* Reapply `Make PG12 depend on plpython3u instead of plpython3u`
 * Fix identifier quotation in `CDB_UserDataSize`
 
 0.34.0 (2019-12-23)
 * Revert changes done in 0.33.0, keeping function signature to drop them
 
 0.33.0 (2019-12-20)
-* Revert `Make PG12 depend on plpython3u instead of plpythonu`.
+* Revert `Make PG12 depend on plpython3u instead of plpython3u`.
 * Add functions to manage Federated Tables (Foreign Data Wrapper)
 
 0.32.0 (2019-11-08)
 * Fix oAuth ownership re-assignation for functions
 * Some fixes for PG12.
-* Make PG12 depend on plpython3u instead of plpythonu
+* Make PG12 depend on plpython3u instead of plpython3u
 * CDB_UserDataSize is now compatible with postgis 3 without postgis_raster.
 * Makefile: Add regress target (checks regress tests without needing to install the extension)
 
@@ -473,7 +473,7 @@ Enhancements:
 
  - Do not force re-cartodbfication on CREATE FROM unpackaged
  - Drop useless DEFAULT specification in plpgsql variable declarations
- - List plpythonu requirement first, to get pg_catalog scanned before public
+ - List plpython3u requirement first, to get pg_catalog scanned before public
 
 Bug fixes:
 
@@ -484,7 +484,7 @@ Bug fixes:
 
 Important changes:
 
- - This release adds dependency on "plpythonu" extension
+ - This release adds dependency on "plpython3u" extension
  - Roles are not created anymore, previously private functions
    for table information extraction (CDB_UserTables, CDB_TableIndexes,
    CDB_ColumnNames, CDB_ColumnType) will now be callable by anyone while

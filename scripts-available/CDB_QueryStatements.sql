@@ -11,4 +11,4 @@ RETURNS SETOF TEXT AS $$
     cleaned = match[0].strip()
     if ( cleaned ):
       yield cleaned
-$$ language '@@plpythonu@@' IMMUTABLE STRICT PARALLEL SAFE;
+$$ language '@@plpython3u@@' IMMUTABLE STRICT PARALLEL SAFE;

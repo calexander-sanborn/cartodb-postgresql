@@ -139,9 +139,9 @@ include $(PGXS)
 
 PG_VERSION := $(shell $(PG_CONFIG) --version | $(AWK) '{split($$2,a,"."); print a[1]}')
 PG_12_GE := $(shell [ $(PG_VERSION) -ge 12 ] && echo true)
-PLPYTHONU := plpythonu
+PLPYTHON3U := plpython3u
 ifeq ($(PG_12_GE), true)
-PLPYTHONU := plpython3u
+PLPYTHON3U := plpython3u
 endif
 PGPORT ?= '5432'
 PGUSER ?= 'postgres'
@@ -151,7 +151,7 @@ $(EXTENSION)--$(EXTVERSION).sql: $(CDBSCRIPTS) cartodb_version.sql Makefile
 	cat $(CDBSCRIPTS) | \
 	$(SED) 	-e 's/@extschema@/cartodb/g' \
 		-e 's/@postgisschema@/public/g' \
-		-e 's/@@plpythonu@@/$(PLPYTHONU)/g' >> $@
+		-e 's/@@plpython3u@@/$(PLPYTHON3U)/g' >> $@
 	echo "GRANT USAGE ON SCHEMA cartodb TO public;" >> $@
 	cat cartodb_version.sql >> $@
 
@@ -165,10 +165,10 @@ $(EXTENSION)--$(EXTVERSION)--$(EXTVERSION)next.sql: $(EXTENSION)--$(EXTVERSION).
 	cp $< $@
 
 $(EXTENSION).control: $(EXTENSION).control.in Makefile
-	$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/g' -e 's/@@plpythonu@@/$(PLPYTHONU)/g' $< > $@
+	$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/g' -e 's/@@plpython3u@@/$(PLPYTHON3U)/g' $< > $@
 
 cartodb_version.sql: cartodb_version.sql.in Makefile
-	$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/' -e 's/@extschema@/cartodb/g' -e "s/@postgisschema@/public/g" -e 's/@@plpythonu@@/$(PLPYTHONU)/g' $< > $@
+	$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/' -e 's/@extschema@/cartodb/g' -e "s/@postgisschema@/public/g" -e 's/@@plpython3u@@/$(PLPYTHON3U)/g' $< > $@
 
 # Needed for consistent `echo` results with backslashes
 SHELL = bash
@@ -178,7 +178,7 @@ legacy_regress: $(REGRESS_OLD) Makefile
 	mkdir -p expected/test/
 	mkdir -p results/test/
 	cat sql/test_setup.sql | \
-			$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/' -e 's/@extschema@/cartodb/g' -e "s/@postgisschema@/public/g" -e 's/@@plpythonu@@/$(PLPYTHONU)/g' \
+			$(SED) -e 's/@@VERSION@@/$(EXTVERSION)/' -e 's/@extschema@/cartodb/g' -e "s/@postgisschema@/public/g" -e 's/@@plpython3u@@/$(PLPYTHON3U)/g' \
 			> sql/test/test_setup.sql
 	cp sql/test_setup_expect expected/test/test_setup.out
 	for f in $(REGRESS_OLD); do \
@@ -192,7 +192,7 @@ legacy_regress: $(REGRESS_OLD) Makefile
 			$(SED) 	-e 's/@@VERSION@@/$(EXTVERSION)/' \
 				-e 's/@extschema@/cartodb/g' \
 				-e "s/@postgisschema@/public/g" \
-				-e 's/@@plpythonu@@/$(PLPYTHONU)/g' \
+				-e 's/@@plpython3u@@/$(PLPYTHON3U)/g' \
 				-e 's/@@PGPORT@@/$(PGPORT)/g' \
 				-e 's/@@PGUSER@@/$(PGUSER)/g' \
 				>> $${of}; \
@@ -202,7 +202,7 @@ legacy_regress: $(REGRESS_OLD) Makefile
 			$(SED) 	-e 's/@@VERSION@@/$(EXTVERSION)/' \
 				-e 's/@extschema@/cartodb/g' \
 				-e "s/@postgisschema@/public/g" \
-				-e 's/@@plpythonu@@/$(PLPYTHONU)/g' \
+				-e 's/@@plpython3u@@/$(PLPYTHON3U)/g' \
 				-e 's/@@PGPORT@@/$(PGPORT)/g' \
 				-e 's/@@PGUSER@@/$(PGUSER)/g' \
 				>> $${exp}; \

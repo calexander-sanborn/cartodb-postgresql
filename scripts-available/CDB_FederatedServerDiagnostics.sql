@@ -191,7 +191,7 @@ AS $$
         })
     return json.dumps(stats)
 $$
-LANGUAGE @@plpythonu@@ VOLATILE PARALLEL UNSAFE;
+LANGUAGE @@plpython3u@@ VOLATILE PARALLEL UNSAFE;
 
 
 --

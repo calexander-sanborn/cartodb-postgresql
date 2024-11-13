@@ -52,7 +52,7 @@ AS $$
 
     return clean_lines
 $$
-LANGUAGE @@plpythonu@@ VOLATILE PARALLEL UNSAFE;
+LANGUAGE @@plpython3u@@ VOLATILE PARALLEL UNSAFE;
 
 -- Returns a list of queries that can be used to regenerate the structure of a table
 -- The query to create the table is not included
