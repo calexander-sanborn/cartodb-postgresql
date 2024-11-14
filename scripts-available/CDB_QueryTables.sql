@@ -16,7 +16,7 @@ BEGIN
 
   FOR rec IN SELECT @extschema@.CDB_QueryStatements(query) q LOOP
     BEGIN
-      EXECUTE 'EXPLAIN (FORMAT XML, VERBOSE) ' || rec.q INTO STRICT exp;
+      EXECUTE 'EXPLAIN (FORMAT XML, VERBOSE) ' || quote_literal(rec.q) INTO exp;
     EXCEPTION WHEN syntax_error THEN
       -- We can get a syntax error if the user tries to EXPLAIN a DDL
       CONTINUE;
