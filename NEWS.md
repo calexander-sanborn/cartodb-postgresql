@@ -1,3 +1,6 @@
+0.38.0 (2024-11-13)
+* Update to PlPython3u
+
 0.37.1 (2020-12-02)
 * Change `__CDB_RegenerateTable_Get_Commands` to use the caller timeout or '1min' if not set.
 
